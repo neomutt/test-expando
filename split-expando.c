@@ -60,7 +60,7 @@ bool callback_animal(const char *option, void *data, struct Buffer *buf)
 
 void expando(struct Buffer *buf, const char *fmt, struct Option *callback)
 {
-  struct Buffer *buf_callback = mutt_buffer_alloc(1024);
+  struct Buffer buf_callback = mutt_buffer_make(1024);
 
   for (const char *ch = fmt; *ch; ch++)
   {
@@ -72,12 +72,12 @@ void expando(struct Buffer *buf, const char *fmt, struct Option *callback)
       {
         if (*ch == callback[i].option[0])
         {
-          mutt_buffer_reset(buf_callback);
-          result = callback[i].callback(callback[i].option, callback[i].data, buf_callback);
+          mutt_buffer_reset(&buf_callback);
+          result = callback[i].callback(callback[i].option, callback[i].data, &buf_callback);
           if (result)
           {
             mutt_buffer_addstr(buf, "\033[1;32m");
-            mutt_buffer_addstr(buf, buf_callback->data);
+            mutt_buffer_addstr(buf, buf_callback.data);
             mutt_buffer_addstr(buf, "\033[m");
           }
 
@@ -96,7 +96,7 @@ void expando(struct Buffer *buf, const char *fmt, struct Option *callback)
     mutt_buffer_addch(buf, *ch);
   }
 
-  mutt_buffer_free(&buf_callback);
+  mutt_buffer_dealloc(&buf_callback);
 }
 
 int main(int argc, char *argv[])
@@ -119,14 +119,14 @@ int main(int argc, char *argv[])
                            { "d", callback_animal, &animal },
                            { NULL } };
 
-  struct Buffer *buf = mutt_buffer_alloc(1024);
+  struct Buffer buf = mutt_buffer_make(1024);
 
   const char *fmt = "pre %a %b %x %c %d post";
-  expando(buf, fmt, (struct Option *) &opts);
+  expando(&buf, fmt, (struct Option *) &opts);
 
   printf("format: %s\n", fmt);
-  printf("result: %s\n", buf->data);
+  printf("result: %s\n", buf.data);
 
-  mutt_buffer_free(&buf);
+  mutt_buffer_dealloc(&buf);
   return 0;
 }
