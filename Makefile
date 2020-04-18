@@ -12,7 +12,7 @@ CFLAGS	+= -O0
 CFLAGS	+= -I$(NEO)
 CFLAGS	+= -fno-omit-frame-pointer
 
-LDFLAGS	+= -L$(NEO) -lmutt
+LDFLAGS	+= -L$(NEO) -lmutt -lpcre2-8
 
 # CFLAGS	+= -fsanitize=undefined
 # LDFLAGS	+= -fsanitize=undefined

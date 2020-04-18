@@ -1,5 +1,5 @@
 #include "config.h"
-#include "mutt/mutt.h"
+#include "mutt/lib.h"
 
 struct Fruit
 {
