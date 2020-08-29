@@ -25,13 +25,13 @@ struct Option
 bool callback_fruit(const char *option, void *data, struct Buffer *buf)
 {
   struct Fruit *fruit = data;
-  if (mutt_str_strcmp(option, "a") == 0)
+  if (mutt_str_equal(option, "a"))
   {
     mutt_buffer_addstr(buf, fruit->apple);
     return true;
   }
 
-  if (mutt_str_strcmp(option, "b") == 0)
+  if (mutt_str_equal(option, "b"))
   {
     mutt_buffer_addstr(buf, fruit->banana);
     return true;
@@ -43,13 +43,13 @@ bool callback_fruit(const char *option, void *data, struct Buffer *buf)
 bool callback_animal(const char *option, void *data, struct Buffer *buf)
 {
   struct Animal *animal = data;
-  if (mutt_str_strcmp(option, "c") == 0)
+  if (mutt_str_equal(option, "c"))
   {
     mutt_buffer_addstr(buf, animal->cat);
     return true;
   }
 
-  if (mutt_str_strcmp(option, "d") == 0)
+  if (mutt_str_equal(option, "d"))
   {
     mutt_buffer_addstr(buf, animal->dog);
     return true;
