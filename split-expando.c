@@ -1,6 +1,19 @@
 #include "config.h"
 #include "mutt/lib.h"
 
+struct NeoMutt
+{
+  int dummy;
+};
+
+struct NeoMutt *NeoMutt = NULL;
+
+struct ConfigSubset;
+const char *cs_subset_path(const struct ConfigSubset *sub, const char *name)
+{
+  return NULL;
+}
+
 struct Fruit
 {
   const char *apple;
